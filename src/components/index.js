@@ -1,34 +1,41 @@
 import { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
+import useLocalStorage from "./useLocalStorage";
 
 //import for table
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
-import TableHeadBasic from "./tableHeadBasic";
-import TableRow from "@material-ui/core/TableRow";
+
 import Paper from "@material-ui/core/Paper";
-import ListItem from "@material-ui/core/ListItem";
+
+//component import
+import TableHeadBasic from "./tableHeadBasic";
+import VehicleRow from "./vehicleRow";
 
 function Index() {
-  const [vehicles, setVehicles] = useState(null);
-  const [equipmentsFile, setEquipmentsFile] = useState(null);
-  var equipments = [];
+  const [vehiclesFile, setVehiclesFile] = useLocalStorage("vehicles", null);
+  const [equipmentsFile, setEquipmentsFile] = useLocalStorage(
+    "equipmentsFile",
+    null
+  );
+
+  //måste ha någon sorts array till equipments
 
   useEffect(() => {
-    console.log("fetching", vehicles);
+    console.log("fetching", vehiclesFile);
     const fetchData = async () => {
       const response = await fetch("/vehicles.json");
       const json = await response.json();
-      setVehicles(json);
+      setVehiclesFile(json);
+      //localStorage.setItem("vehicles", JSON.stringify(json));
     };
-    if (!vehicles) {
+    if (!vehiclesFile) {
       fetchData();
     }
-  }, [vehicles]);
+  }, [vehiclesFile]);
 
   useEffect(() => {
     console.log("fetching", equipmentsFile);
@@ -37,6 +44,7 @@ function Index() {
       const response = await fetch("/equipments.json");
       const json = await response.json();
       setEquipmentsFile(json);
+      //localStorage.setItem("equipments", JSON.stringify(json));
     };
     if (!equipmentsFile) {
       fetchData();
@@ -51,43 +59,52 @@ function Index() {
 
   const classes = useStyles();
 
-  class EquipmentObject {
-    constructor(id, name) {
-      this.id = id;
-      this.name = name;
-    }
-  }
+  // const checkEquipments = () => {
+  //   vehicles?.map((vehicle) =>
+  //     vehicle.equipments?.map((eq) => {
+  //       return equipmentsFile.map((e) => {
+  //         if (e.id === eq) {
+  //           console.log("its true");
+  //           return true;
+  //         } else {
+  //           console.log("its false");
+  //           return false;
+  //         }
+  //       });
+  //     })
+  //   );
+  // };
 
-  const checkEquipmentsId = () => {
-    if (equipmentsFile.length > 0) {
-      for (var i = 0; i < equipmentsFile?.length; i++) {
-        let equipmentObject = new EquipmentObject(
-          equipmentsFile[i].id,
-          equipmentsFile[i].name
-        );
-        equipments.push(equipmentObject);
-      }
-    }
-  };
+  // class EquipmentObject {
+  //   constructor(id, name) {
+  //     this.id = id;
+  //     this.name = name;
+  //   }
+  // }
 
-  const map1 = new Map();
+  // const checkEquipmentsId = () => {
+  //   if (equipmentsFile.length > 0) {
+  //     for (var i = 0; i < equipmentsFile?.length; i++) {
+  //       let equipmentObject = new EquipmentObject(
+  //         equipmentsFile[i].id,
+  //         equipmentsFile[i].name
+  //       );
+  //       equipments.push(equipmentObject);
+  //       console.log("objecte " + equipmentObject);
+  //     }
+  //   }
+  // };
 
-  map1.set(1, "Crane");
-  map1.set(2, "Tachograph");
-  map1.set(3, "Fire Extinguisher");
-  map1.set(4, "Hook");
-  map1.set(5, "Custom equipment");
-  console.log(map1);
+  // const map1 = new Map();
 
-  console.log(
-    vehicles?.map((vehicle) => {
-      console.log(vehicle);
-      return vehicle.equipments?.map((e) => {
-        console.log("equipments " + e);
-        console.log(map1.get(e));
-      });
-    })
-  );
+  // map1.set(1, "Crane");
+  // map1.set(2, "Tachograph");
+  // map1.set(3, "Fire Extinguisher");
+  // map1.set(4, "Hook");
+  // map1.set(5, "Custom equipment");
+  // console.log(map1);
+  console.log(equipmentsFile);
+
   return (
     <Grid container spacing={2} className="tableContainer">
       <Grid item xs={12}>
@@ -96,36 +113,70 @@ function Index() {
             <TableBody>
               <TableHeadBasic />
 
-              {vehicles?.map((vehicle) => (
+              {vehiclesFile?.map((vehicle, Index) => {
+                return (
+                  <VehicleRow
+                    key={Index}
+                    vehicle={vehicle}
+                    id={vehicle.id}
+                    name={vehicle.name}
+                    fuelType={vehicle.fuelType}
+                    equipmentsFile={equipmentsFile}
+                    setVehiclesFile={setVehiclesFile}
+                  />
+                );
+              })}
+
+              {/* {vehiclesFile?.map((vehicle) => (
                 <TableRow key={vehicle.id}>
                   <TableCell component="th" scope="row">
                     {vehicle.id}
                   </TableCell>
                   <TableCell align="right">{vehicle.name}</TableCell>
-                  <TableCell align="right">
-                    {vehicle.equipments?.map((eq) => {
-                      return equipmentsFile?.map((e) => {
-                        if (e.id === eq) {
-                          return e.name + " ";
-                        } else {
-                          return "";
-                        }
-                      });
 
-                      // return map1.get(e);
-                    })}
-
-                    {/* {equipmentsFile?.map((e) => {
-                      if (e.id === 3) {
-                        return e.name;
-                      } else {
-                        return "";
-                      }
-                    })} */}
-                  </TableCell>
                   <TableCell align="right">{vehicle.fuelType}</TableCell>
+                  <TableCell align="left">
+                    {equipmentsFile?.map((equipment) => {
+                      return (
+                        <ul className="listItem">
+                          <li>
+                            <Checkbox
+                              checked={vehicle.equipments?.includes(
+                                equipment.id
+                              )}
+                              onClick={() =>
+                                setVehiclesFile((old) =>
+                                  old.map((v) =>
+                                    v.id === vehicle.id
+                                      ? {
+                                          ...v,
+                                          equipments:
+                                            vehicle.equipments?.includes(
+                                              equipment.id
+                                            )
+                                              ? vehicle.equipments.filter(
+                                                  (equip) =>
+                                                    equip !== equipment.id
+                                                )
+                                              : [
+                                                  ...vehicle.equipments,
+                                                  equipment.id,
+                                                ],
+                                        }
+                                      : v
+                                  )
+                                )
+                              }
+                              color="primary"
+                            ></Checkbox>
+                            {equipment.name}
+                          </li>
+                        </ul>
+                      );
+                    })}
+                  </TableCell>
                 </TableRow>
-              ))}
+              ))} */}
             </TableBody>
           </Table>
         </TableContainer>

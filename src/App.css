@@ -1,3 +1,11 @@
 .tableContainer {
   padding: 50px;
 }
+
+.listItem {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: left;
+}

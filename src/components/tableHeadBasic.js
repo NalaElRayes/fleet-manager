@@ -6,8 +6,8 @@ const TableHeadBasic = () => {
     <TableRow>
       <TableCell>Id</TableCell>
       <TableCell align="right">Name</TableCell>
-      <TableCell align="right">Equipments</TableCell>
       <TableCell align="right">Fuel Type</TableCell>
+      <TableCell align="left">Existing Equipments</TableCell>
     </TableRow>
   );
 };

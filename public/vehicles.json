@@ -5,7 +5,7 @@
     "driver": "SpongeBob SquarePants",
     "status": "active",
     "fuelType": "LNG",
-    "equipments": [1,2]
+    "equipments": [1, 2]
   },
   {
     "id": "v2",
@@ -37,7 +37,7 @@
     "driver": "Plankton and Karen",
     "status": "active",
     "fuelType": "Diesel",
-    "equipments": [1,4]
+    "equipments": [1, 4]
   },
   {
     "id": "v6",
@@ -116,6 +116,6 @@
     "driver": "King Neptune",
     "status": "active",
     "fuelType": "Diesel",
-    "equipments": [1,2,3,4]
+    "equipments": [1, 2, 3, 4]
   }
 ]

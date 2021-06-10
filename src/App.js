@@ -18,7 +18,7 @@ function App() {
       flexGrow: 1,
     },
     customizeToolbar: {
-      minHeight: 50,
+      minHeight: 70,
     },
   }));
 
@@ -33,7 +33,7 @@ function App() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Index></Index>
+      <Index />
     </div>
   );
 }
