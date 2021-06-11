@@ -4,10 +4,12 @@ import TableCell from "@material-ui/core/TableCell";
 const TableHeadBasic = () => {
   return (
     <TableRow>
+      <TableCell></TableCell>
       <TableCell>Id</TableCell>
       <TableCell align="right">Name</TableCell>
       <TableCell align="right">Fuel Type</TableCell>
-      <TableCell align="left">Existing Equipments</TableCell>
+      <TableCell align="right">Driver</TableCell>
+      <TableCell align="right">Status</TableCell>
     </TableRow>
   );
 };

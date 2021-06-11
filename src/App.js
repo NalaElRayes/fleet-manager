@@ -7,32 +7,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
 function App() {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-    customizeToolbar: {
-      minHeight: 70,
-    },
-  }));
-
-  const classes = useStyles();
-
   return (
     <div className="App">
-      <AppBar position="static">
-        <Toolbar className={classes.customizeToolbar}>
-          <Typography variant="h6" className={classes.title}>
-            Fleet Manager
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Index />
     </div>
   );
