@@ -9,7 +9,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import CssBaseline from "@material-ui/core/CssBaseline";
-
+import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 
 //component import
@@ -18,11 +18,14 @@ import VehicleRow from "./vehicleRow";
 import VechicleDrawer from "./vehicleDrawer";
 
 function Index() {
-  const [vehiclesFile, setVehiclesFile] = useLocalStorage("vehicles", null);
+  const [vehiclesFile, setVehiclesFile] = useLocalStorage("vehicle", null);
   const [equipmentsFile, setEquipmentsFile] = useLocalStorage(
     "equipmentsFile",
     null
   );
+
+  const [filteredData, setFilteredData] = useLocalStorage("filtered", null);
+  const [search, setSearch] = useState("");
 
   //måste ha någon sorts array till equipments
 
@@ -32,11 +35,11 @@ function Index() {
       const response = await fetch("/vehicles.json");
       const json = await response.json();
       setVehiclesFile(json);
-      //localStorage.setItem("vehicles", JSON.stringify(json));
     };
     if (!vehiclesFile) {
       fetchData();
     }
+    setFilteredData(vehiclesFile);
   }, [vehiclesFile]);
 
   useEffect(() => {
@@ -46,12 +49,16 @@ function Index() {
       const response = await fetch("/equipments.json");
       const json = await response.json();
       setEquipmentsFile(json);
-      //localStorage.setItem("equipments", JSON.stringify(json));
     };
     if (!equipmentsFile) {
       fetchData();
     }
   }, [equipmentsFile]);
+
+  useEffect(() => {
+    console.log("hej");
+    filterSearch(search);
+  }, [search]);
 
   const useStyles = makeStyles({
     table: {
@@ -61,6 +68,21 @@ function Index() {
 
   const classes = useStyles();
 
+  const filterSearch = (search) => {
+    let searchResult = vehiclesFile;
+    searchResult = searchResult?.filter((vehicle) => {
+      if (search === "") {
+        return true;
+      } else if (vehicle.name.toLowerCase().includes(search.toLowerCase())) {
+        return true;
+      } else return;
+    });
+    setFilteredData(searchResult);
+    console.log("filtereddata innehåller" + JSON.stringify(filteredData));
+
+    // setFilteredData(searchResult);
+  };
+
   return (
     <>
       <CssBaseline />
@@ -68,6 +90,15 @@ function Index() {
 
       <Grid container spacing={2} className="tableContainer">
         <Grid item xs={12}>
+          <TextField
+            id="outlined-basic"
+            label="Search"
+            variant="outlined"
+            value={search}
+            style={{ margin: "20px" }}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
           <TableContainer
             component={Paper}
             className={classes.customTableContainer}
@@ -76,10 +107,10 @@ function Index() {
               <TableBody>
                 <TableHeadBasic />
 
-                {vehiclesFile?.map((vehicle, Index) => {
+                {filteredData?.map((vehicle, index) => {
                   return (
                     <VehicleRow
-                      key={Index}
+                      key={`${index}-vehicle`}
                       vehicle={vehicle}
                       status={vehicle.status}
                       id={vehicle.id}
@@ -87,8 +118,8 @@ function Index() {
                       fuelType={vehicle.fuelType}
                       driver={vehicle.driver}
                       equipmentsFile={equipmentsFile}
-                      vehiclesFile={vehiclesFile}
-                      setVehiclesFile={setVehiclesFile}
+                      // setVehiclesFile={setVehiclesFile}
+                      setFilteredData={setFilteredData}
                     />
                   );
                 })}

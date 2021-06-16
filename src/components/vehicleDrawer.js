@@ -12,6 +12,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import { useState } from "react";
+import EmojiTransportationRoundedIcon from "@material-ui/icons/EmojiTransportationRounded";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import Switch from "@material-ui/core/Switch";
 
 const drawerWidth = 200;
 
@@ -38,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function VechicleDrawer() {
+export default function VechicleDrawer({ handleToggle }) {
   const classes = useStyles();
 
   return (
@@ -61,6 +65,20 @@ export default function VechicleDrawer() {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
+            <ListItem>
+              <ListItemIcon>
+                <EmojiTransportationRoundedIcon />
+              </ListItemIcon>
+              <ListItemText id="switch-list-label-active" primary="active" />
+              <ListItemSecondaryAction>
+                <Switch
+                  edge="end"
+                  onChange={handleToggle}
+                  inputProps={{ "aria-labelledby": "switch-list-label-active" }}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+
             {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>

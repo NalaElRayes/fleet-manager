@@ -1,6 +1,7 @@
 import Checkbox from "@material-ui/core/Checkbox";
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import shortid from "short-id";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
@@ -12,10 +13,12 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
 
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import useLocalStorage from "../hooks/useLocalStorage";
+
+var ids = require("short-id");
 
 const useRowStyles = makeStyles({
   root: {
@@ -26,7 +29,7 @@ const useRowStyles = makeStyles({
 });
 
 const VehicleRow = ({
-  Index,
+  index,
   vehicle,
   id,
   name,
@@ -34,7 +37,8 @@ const VehicleRow = ({
   driver,
   status,
   equipmentsFile,
-  setVehiclesFile,
+  // setVehiclesFile,
+  setFilteredData,
   ...rest
 }) => {
   const [open, setOpen] = useState(false);
@@ -42,7 +46,7 @@ const VehicleRow = ({
 
   return (
     <>
-      <TableRow className={classes.root}>
+      <TableRow className={classes.root} {...rest}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -53,20 +57,14 @@ const VehicleRow = ({
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {vehicle.id ? vehicle.id : "No id"}
+          {id ? id : "No id"}
         </TableCell>
+        <TableCell align="right">{name ? name : "No name"}</TableCell>
         <TableCell align="right">
-          {vehicle.name ? vehicle.name : "No name"}
+          {fuelType ? fuelType : "No fuel type"}
         </TableCell>
-        <TableCell align="right">
-          {vehicle.fuelType ? vehicle.fuelType : "No fuel type"}
-        </TableCell>
-        <TableCell align="right">
-          {vehicle.driver ? vehicle.driver : "No driver"}
-        </TableCell>
-        <TableCell align="right">
-          {vehicle.status ? vehicle.status : "No status"}
-        </TableCell>
+        <TableCell align="right">{driver ? driver : "No driver"}</TableCell>
+        <TableCell align="right">{status ? status : "No status"}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -79,21 +77,21 @@ const VehicleRow = ({
                 <TableHead>
                   <TableRow>
                     <TableCell>Add or remove equipments</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
+                    <TableCell />
+                    <TableCell />
+                    <TableCell />
+                    <TableCell />
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    {equipmentsFile?.map((equipment, index) => {
+                    {equipmentsFile?.map((equipment) => {
                       return (
                         <TableCell align="right">
                           <Checkbox
                             checked={vehicle.equipments?.includes(equipment.id)}
                             onClick={() =>
-                              setVehiclesFile((old) =>
+                              setFilteredData((old) =>
                                 old.map((v) =>
                                   v.id === vehicle.id
                                     ? {
@@ -130,6 +128,23 @@ const VehicleRow = ({
       </TableRow>
     </>
   );
+};
+
+VehicleRow.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  fuelType: PropTypes.string.isRequired,
+  driver: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+};
+
+VehicleRow.defaultProps = {
+  id: "no id",
+  name: "No Name",
+  fuelType: "No fuelType",
+  driver: "No driver",
+  status: "No status",
+  equipmentsFile: [],
 };
 
 export default VehicleRow;
