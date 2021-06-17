@@ -45,7 +45,7 @@ const VehicleRow = ({
   const classes = useRowStyles();
 
   return (
-    <>
+    <div data-testid="vehicleRow">
       <TableRow className={classes.root} {...rest}>
         <TableCell>
           <IconButton
@@ -126,7 +126,7 @@ const VehicleRow = ({
           </Collapse>
         </TableCell>
       </TableRow>
-    </>
+    </div>
   );
 };
 

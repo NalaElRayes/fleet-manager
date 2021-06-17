@@ -39,7 +39,6 @@ function Index() {
     if (!vehiclesFile) {
       fetchData();
     }
-    setFilteredData(vehiclesFile);
   }, [vehiclesFile]);
 
   useEffect(() => {
@@ -69,8 +68,7 @@ function Index() {
   const classes = useStyles();
 
   const filterSearch = (search) => {
-    let searchResult = vehiclesFile;
-    searchResult = searchResult?.filter((vehicle) => {
+    let searchResult = vehiclesFile?.filter((vehicle) => {
       if (search === "") {
         return true;
       } else if (vehicle.name.toLowerCase().includes(search.toLowerCase())) {
