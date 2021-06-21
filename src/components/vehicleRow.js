@@ -1,6 +1,5 @@
 import Checkbox from "@material-ui/core/Checkbox";
 import React, { useState } from "react";
-import shortid from "short-id";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -17,8 +16,6 @@ import PropTypes from "prop-types";
 
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-
-var ids = require("short-id");
 
 const useRowStyles = makeStyles({
   root: {
@@ -45,10 +42,11 @@ const VehicleRow = ({
   const classes = useRowStyles();
 
   return (
-    <div data-testid="vehicleRow">
-      <TableRow className={classes.root} {...rest}>
+    <>
+      <TableRow data-testid="vehicleRow" className={classes.root} {...rest}>
         <TableCell>
           <IconButton
+            data-testid="iconBtn"
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
@@ -66,7 +64,7 @@ const VehicleRow = ({
         <TableCell align="right">{driver ? driver : "No driver"}</TableCell>
         <TableCell align="right">{status ? status : "No status"}</TableCell>
       </TableRow>
-      <TableRow>
+      <TableRow data-testid="collapsableRow">
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
@@ -126,7 +124,7 @@ const VehicleRow = ({
           </Collapse>
         </TableCell>
       </TableRow>
-    </div>
+    </>
   );
 };
 
