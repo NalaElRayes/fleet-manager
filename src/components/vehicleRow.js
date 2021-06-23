@@ -28,12 +28,12 @@ const useRowStyles = makeStyles({
 const VehicleRow = ({
   index,
   vehicle,
+  equipmentsFile,
   id,
   name,
   fuelType,
   driver,
   status,
-  equipmentsFile,
   // setVehiclesFile,
   setFilteredData,
   ...rest
@@ -54,31 +54,38 @@ const VehicleRow = ({
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {id ? id : "No id"}
+        <TableCell component="th" scope="row" data-testid="vehicleId">
+          {id}
         </TableCell>
-        <TableCell align="right">{name ? name : "No name"}</TableCell>
-        <TableCell align="right">
+        <TableCell align="right" data-testid="vehicleName">
+          {name ? name : "No name"}
+        </TableCell>
+        <TableCell align="right" data-testid="vehicleFuelType">
           {fuelType ? fuelType : "No fuel type"}
         </TableCell>
-        <TableCell align="right">{driver ? driver : "No driver"}</TableCell>
-        <TableCell align="right">{status ? status : "No status"}</TableCell>
+        <TableCell align="right" data-testid="vehicleDriver">
+          {driver ? driver : "No driver"}
+        </TableCell>
+        <TableCell align="right" data-testid="vehicleStatus">
+          {status ? status : "No status"}
+        </TableCell>
       </TableRow>
       <TableRow data-testid="collapsableRow">
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
+              <Typography
+                data-testid="equipmentsHeader"
+                variant="h6"
+                gutterBottom
+                component="div"
+              >
                 Equipments
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Add or remove equipments</TableCell>
-                    <TableCell />
-                    <TableCell />
-                    <TableCell />
-                    <TableCell />
+                    <TableCell colSpan={5}>Add or remove equipments</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -130,10 +137,10 @@ const VehicleRow = ({
 
 VehicleRow.propTypes = {
   id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  fuelType: PropTypes.string.isRequired,
-  driver: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  fuelType: PropTypes.string,
+  driver: PropTypes.string,
+  status: PropTypes.string,
 };
 
 VehicleRow.defaultProps = {

@@ -67,7 +67,7 @@ function Index() {
 
   const classes = useStyles();
 
-  const filterSearch = (search) => {
+  export const filterSearch = (search) => {
     let searchResult = vehiclesFile?.filter((vehicle) => {
       if (search === "") {
         return true;
