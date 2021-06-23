@@ -67,7 +67,7 @@ function Index() {
 
   const classes = useStyles();
 
-  export const filterSearch = (search) => {
+  const filterSearch = (search) => {
     let searchResult = vehiclesFile?.filter((vehicle) => {
       if (search === "") {
         return true;
@@ -94,6 +94,7 @@ function Index() {
             variant="outlined"
             value={search}
             style={{ margin: "20px" }}
+            data-testid="searchField"
             onChange={(e) => setSearch(e.target.value)}
           />
 

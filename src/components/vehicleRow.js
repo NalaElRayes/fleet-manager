@@ -72,7 +72,12 @@ const VehicleRow = ({
       </TableRow>
       <TableRow data-testid="collapsableRow">
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse
+            in={open}
+            timeout="auto"
+            unmountOnExit
+            data-testid="collapseable"
+          >
             <Box margin={1}>
               <Typography
                 data-testid="equipmentsHeader"
