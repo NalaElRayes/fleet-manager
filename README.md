@@ -10,9 +10,9 @@ for a specific vehicle and add and remove equipments from a vehicle.
 The tests are written with Jest and Reacts testing libirary. 
 
 ## Used Links
-[React doc](https://reactjs.org/docs/components-and-props.html)
-[Mdn Web Docs Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
-[Material Ui Table](https://material-ui.com/components/tables/)
+[React doc](https://reactjs.org/docs/components-and-props.html)\
+[Mdn Web Docs Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)\
+[Material Ui Table](https://material-ui.com/components/tables/)\
 [Fetch Data from a JSON File in a React App](https://www.pluralsight.com/guides/fetch-data-from-a-json-file-in-a-react-app)
 
 
