@@ -10,7 +10,7 @@ for a specific vehicle and add and remove equipments from a vehicle.
 The tests are written with Jest and Reacts testing libirary. 
 
 ## Used Links
-<a href="doc:introduction" target="_blank">Introduction</a>
+[React doc](https://reactjs.org/docs/components-and-props.html)
 
 ## Scripts
 
