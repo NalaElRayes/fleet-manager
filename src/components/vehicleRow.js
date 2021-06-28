@@ -1,4 +1,3 @@
-import Checkbox from "@material-ui/core/Checkbox";
 import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,6 +12,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
+import VehicleCell from "./vehicleCell";
 
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
@@ -34,7 +34,6 @@ const VehicleRow = ({
   fuelType,
   driver,
   status,
-  // setVehiclesFile,
   setFilteredData,
   ...rest
 }) => {
@@ -97,36 +96,11 @@ const VehicleRow = ({
                   <TableRow>
                     {equipmentsFile?.map((equipment) => {
                       return (
-                        <TableCell align="right">
-                          <Checkbox
-                            checked={vehicle.equipments?.includes(equipment.id)}
-                            onClick={() =>
-                              setFilteredData((old) =>
-                                old.map((v) =>
-                                  v.id === vehicle.id
-                                    ? {
-                                        ...v,
-                                        equipments:
-                                          vehicle.equipments?.includes(
-                                            equipment.id
-                                          )
-                                            ? vehicle.equipments.filter(
-                                                (equip) =>
-                                                  equip !== equipment.id
-                                              )
-                                            : [
-                                                ...vehicle.equipments,
-                                                equipment.id,
-                                              ],
-                                      }
-                                    : v
-                                )
-                              )
-                            }
-                            color="primary"
-                          ></Checkbox>
-                          {equipment.name}
-                        </TableCell>
+                        <VehicleCell
+                          vehicle={vehicle}
+                          equipment={equipment}
+                          setFilteredData={setFilteredData}
+                        />
                       );
                     })}
                   </TableRow>

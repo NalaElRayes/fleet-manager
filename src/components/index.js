@@ -117,7 +117,6 @@ function Index() {
                       fuelType={vehicle.fuelType}
                       driver={vehicle.driver}
                       equipmentsFile={equipmentsFile}
-                      // setVehiclesFile={setVehiclesFile}
                       setFilteredData={setFilteredData}
                     />
                   );

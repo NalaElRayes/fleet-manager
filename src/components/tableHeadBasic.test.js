@@ -2,7 +2,6 @@ import TableHeadBasic from "./tableHeadBasic";
 import { render, fireEvent, getByTestId } from "@testing-library/react";
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { TableBody, Table } from "@material-ui/core";
 
 test("render tablehead in correct way", () => {
   const { getByTestId } = render(
