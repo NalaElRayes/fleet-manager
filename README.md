@@ -8,7 +8,11 @@ Application for viewing vehicles in a fleet.\
 You can see all the vehicles in a table, search \
 for a specific vehicle and add and remove equipments from a vehicle. 
 
-The tests are written with Jest and Reacts testing libirary. 
+Im using Material Ui Design for the react components. 
+
+Tests are written with Jest and Reacts testing libirary.
+
+Still need to fix the function for filtering vehicles in active mode. 
 
 ## Used Links
 [React doc](https://reactjs.org/docs/components-and-props.html)\
