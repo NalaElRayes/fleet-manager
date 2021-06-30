@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function VechicleDrawer({ handleToggle }) {
+export default function VechicleDrawer({ isOn, handleToggle }) {
   const classes = useStyles();
 
   return (
@@ -69,6 +69,7 @@ export default function VechicleDrawer({ handleToggle }) {
               <ListItemSecondaryAction>
                 <Switch
                   edge="end"
+                  checked={isOn}
                   onChange={handleToggle}
                   inputProps={{ "aria-labelledby": "switch-list-label-active" }}
                 />

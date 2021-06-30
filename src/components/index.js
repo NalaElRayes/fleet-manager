@@ -26,6 +26,7 @@ function Index() {
 
   const [filteredData, setFilteredData] = useLocalStorage("filtered", null);
   const [search, setSearch] = useState("");
+  const [value, setValue] = useState(false);
 
   //måste ha någon sorts array till equipments
 
@@ -55,9 +56,8 @@ function Index() {
   }, [equipmentsFile]);
 
   useEffect(() => {
-    console.log("hej");
-    filterSearch(search);
-  }, [search]);
+    filterSearch(search, value);
+  }, [search, value]);
 
   const useStyles = makeStyles({
     table: {
@@ -67,24 +67,32 @@ function Index() {
 
   const classes = useStyles();
 
-  const filterSearch = (search) => {
-    let searchResult = vehiclesFile?.filter((vehicle) => {
-      if (search === "") {
-        return true;
-      } else if (vehicle.name.toLowerCase().includes(search.toLowerCase())) {
-        return true;
-      } else return;
-    });
-    setFilteredData(searchResult);
-    console.log("filtereddata innehåller" + JSON.stringify(filteredData));
+  const filterSearch = (search, value) => {
+    let searchResult = vehiclesFile;
 
-    // setFilteredData(searchResult);
+    if (search !== "") {
+      searchResult = searchResult?.filter((vehicle) => {
+        if (vehicle.name.toLowerCase().includes(search.toLowerCase())) {
+          return vehicle;
+        }
+      });
+    }
+
+    if (value === true) {
+      searchResult = searchResult?.filter((vehicle) => {
+        if (vehicle.status === "active") {
+          return vehicle;
+        }
+      });
+    }
+
+    return setFilteredData(searchResult);
   };
 
   return (
     <>
       <CssBaseline />
-      <VechicleDrawer />
+      <VechicleDrawer isOn={value} handleToggle={() => setValue(!value)} />
 
       <Grid container spacing={2} className="tableContainer">
         <Grid item xs={12}>
