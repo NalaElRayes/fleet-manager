@@ -34,3 +34,6 @@ Opens at http://localhost:3000
 Launches the test runner in the interactive watch mode.\
 
 <img width="1435" alt="Screenshot 2021-06-28 at 10 32 53" src="https://user-images.githubusercontent.com/54401398/123605630-56079500-d7fc-11eb-9492-17f0d601bd1d.png">
+
+![2021-06-30 14 29 27](https://user-images.githubusercontent.com/54401398/123960590-c30f5c00-d9af-11eb-8940-1c948999947f.gif)
+
