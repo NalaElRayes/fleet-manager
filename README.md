@@ -13,7 +13,7 @@ Im using Material Ui Design as styling for the react components.
 Tests are written with Jest and Reacts testing libirary.
 
 ## Demo
-Use the app online at 
+Use the app online at https://nalaelrayes.github.io/fleet-manager/
 
 ![2021-06-30 14 29 27](https://user-images.githubusercontent.com/54401398/123960590-c30f5c00-d9af-11eb-8940-1c948999947f.gif)
 
